@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Matine · footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff3b6;
+    --ink: #202020;
+    --mute: #707070;
+    --pad: clamp(16px, 2.1vw, 40px);
+    --fs: clamp(13px, .94vw, 18px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--bg); }
+  body {
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: center;
+    background: var(--bg); color: var(--ink);
+    font-family: Montserrat, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  html.lenis { scroll-behavior: auto; }
+
+  .ft { padding: clamp(20px, 1.6vw, 32px) var(--pad) clamp(28px, 2.4vw, 44px); }
+
+  /* illustration */
+  .ft__illu svg { display: block; width: 100%; height: auto; overflow: visible; }
+  #dome, #eye { cursor: pointer; }
+  #eye { outline: none; }
+  #eye:focus-visible #eye-ring { opacity: 1; }
+  #eye-ring { opacity: 0; transition: opacity .2s; }
+  @media (hover: none) { #dome, #eye { cursor: auto; } }
+
+  /* bas du footer */
+  .ft__bottom {
+    display: grid; grid-template-columns: 1fr minmax(300px, 32.5%);
+    gap: 40px; align-items: start;
+    padding: clamp(24px, 2.6vw, 52px) var(--pad) 0;
+  }
+  .ft__cols { display: flex; gap: clamp(40px, 6vw, 114px); }
+  .ft__label, .ft__col a, .ft__badge {
+    font-size: var(--fs); letter-spacing: .12em; text-transform: uppercase;
+  }
+  .ft__label { color: var(--mute); margin-bottom: .35em; }
+  .ft__col ul { list-style: none; padding: 0; }
+  .ft__col li { line-height: 1.9; display: flex; flex-wrap: wrap; align-items: center; column-gap: .75em; }
+  .ft__col a {
+    color: var(--ink); text-decoration: none; font-weight: 500;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size .32s cubic-bezier(.3, .7, .2, 1);
+  }
+  .ft__badge {
+    background: #fff; font-weight: 500; font-size: calc(var(--fs) * .9);
+    padding: .3em .6em; line-height: 1.2;
+  }
+
+  .ft__news h2 {
+    font-family: 'DM Serif Display', Georgia, serif; font-weight: 400;
+    font-size: clamp(20px, 1.45vw, 28px); letter-spacing: .005em;
+    margin-bottom: .8em;
+  }
+  .ft__field {
+    display: flex; align-items: stretch;
+    height: clamp(52px, 3.9vw, 78px);
+    background: #fff; border: 1.5px solid var(--ink);
+  }
+  .ft__field input {
+    flex: 1; min-width: 0; border: 0; outline: none; background: none;
+    padding: 0 0 0 1em; font: inherit; color: var(--ink);
+    font-size: clamp(15px, 1.1vw, 21px); letter-spacing: .02em;
+  }
+  .ft__field input::placeholder { color: #8a8a8a; }
+  .ft__field:focus-within { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .ft__field button {
+    width: clamp(56px, 4vw, 78px); border: 0; background: none; color: var(--ink);
+    display: grid; place-items: center; cursor: pointer;
+  }
+  .ft__field button svg { width: clamp(24px, 1.6vw, 31px); transition: transform .3s cubic-bezier(.3, .7, .2, 1); }
+  .ft__legal {
+    margin-top: 1.5em; color: var(--mute); line-height: 1.45;
+    font-size: clamp(12px, .8vw, 15.5px); text-wrap: pretty;
+  }
+
+  @media (hover: hover) {
+    .ft__col a:hover { background-size: 100% 1px; }
+    .ft__field button:hover svg { transform: translateX(3px); }
+  }
+
+  /* mobile : frise recomposée en pleine largeur (voir le script), newsletter d'abord, liens sur deux colonnes */
+  @media (max-width: 760px) {
+    .ft { padding-top: 12px; }
+    .ft__illu { margin-inline: calc(-1 * var(--pad)); overflow: hidden; }
+    .ft__illu svg { overflow: hidden; }
+    .ft__bottom { --fs: clamp(11px, 3.2vw, 12px); grid-template-columns: 1fr; gap: 40px; padding: 26px 4px 0; }
+    .ft__news { order: -1; }
+    .ft__news h2 { font-size: 23px; margin-bottom: .6em; }
+    .ft__field { height: 54px; }
+    .ft__field input { font-size: 16px; }   /* 16 px : iOS ne zoome pas sur le champ */
+    .ft__legal { font-size: 12px; margin-top: 1.1em; }
+    .ft__cols { display: grid; grid-template-columns: auto auto; justify-content: space-between; column-gap: 16px; }
+    .ft__label, .ft__col a, .ft__badge { letter-spacing: .1em; }
+    .ft__col a { white-space: nowrap; }
+    .ft__label { font-size: 11px; margin-bottom: .5em; }
+    .ft__col li { line-height: 2.15; }
+    .ft__badge { font-size: 10px; padding: .25em .5em; }
+    #eye, #dome { -webkit-tap-highlight-color: transparent; }
+  }
+</style>
+</head>
+<body>
+
+<footer class="ft">
+  <div class="ft__illu">
+<!--ILLU-->
+  </div>
+
+  <div class="ft__bottom">
+    <nav class="ft__cols" aria-label="Pied de page">
+      <div class="ft__col">
+        <p class="ft__label">Un peu d’aide</p>
+        <ul>
+          <li><a href="#">Espace pro</a></li>
+          <li><a href="#">Points de vente</a></li>
+          <li><a href="#">Nous contacter</a></li>
+          <li><a href="#">CGV</a></li>
+          <li><a href="#">Mention légale</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="ft__col">
+        <p class="ft__label">C’est nous</p>
+        <ul>
+          <li><a href="#">Nos parfums</a></li>
+          <li><a href="#">Notre histoire</a></li>
+          <li><a href="#">Nos engagements</a></li>
+          <li><a href="#">Notre boutique</a></li>
+          <li><a href="#">Programme fidélité</a><span class="ft__badge">Nouveauté</span></li>
+        </ul>
+      </div>
+    </nav>
+
+    <form class="ft__news" novalidate>
+      <h2>Join the party !</h2>
+      <div class="ft__field">
+        <input type="email" name="email" placeholder="Adresse e-mail" aria-label="Adresse e-mail" autocomplete="email" required>
+        <button type="submit" aria-label="S’inscrire à la newsletter">
+          <svg viewBox="0 0 32 16" aria-hidden="true"><path d="M1 8h29M23.2 1.4 30 8l-6.8 6.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+      <p class="ft__legal">En continuant, vous acceptez nos conditions générales et notre politique de confidentialité.</p>
+    </form>
+  </div>
+</footer>
+
+<script>
+<!--LENIS-->
+</script>
+<script>
+/* Défilement amorti, mêmes réglages que les autres pages (coupé si moins d'animations demandé) */
+if (window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches) new Lenis({ autoRaf: true, lerp: .09 });
+document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+</script>
+<script>
+/* L'œil de la lampe
+   - la pupille suit le curseur (ressort léger) ; elle passe sous les paupières quand elle regarde haut ou bas ;
+   - il cligne tout seul, parfois deux fois, et aussi quand le regard saute d'un bout à l'autre ;
+   - on le touche : il se ferme d'un coup, reste fermé, rouvre à moitié pour vérifier, puis en grand ;
+     touché trois fois de suite, il boude plus longtemps ;
+   - curseur tout près : il plisse l'œil ; on tape son e-mail : il lit ce qu'on écrit ; on s'inscrit : clin d'œil content ;
+   - sans rien bouger pendant 9 s il s'assoupit, lutte un peu, puis s'endort ; il se réveille au premier geste. */
+(() => {
+  const svg = document.getElementById('illu');
+  const dome = document.getElementById('dome');
+  const eye = document.getElementById('eye');
+  const pupil = document.getElementById('pupil');
+  const lidTop = document.getElementById('lid-top');
+  const lidBot = document.getElementById('lid-bot');
+  const field = document.querySelector('.ft__field input');
+  const form = document.querySelector('.ft__news');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // centre de l'amande dans son plan de travail (l'œil est posé sur le dôme par build.py, recalé sur la maquette)
+  const CX = 138.06, CY = 69.77;
+
+  /* mobile : la frise est recomposée autour de la lampe (nuages ramenés dans le cadre, rien de coupé en miette)
+     pour que l'œil reste lisible au lieu de rétrécir avec toute la largeur */
+  const MOBILE = {
+    view: '470 0 980 705',
+    moves: { 'cloud-tl': [40, 0], 'cloud-tr': [-100, 0], 'cloud-bl': [150, 10], 'cloud-br': [-260, 70],
+             'star-m': [-10, -30], 'logo': [-50, 0], 'cloud-ml': null, 'star-r': null },   // null : masqué
+  };
+  let small = null;
+  const phone = matchMedia('(max-width: 760px)');
+  const fit = () => {
+    const m = phone.matches;
+    if (m === small) return;
+    small = m;
+    svg.setAttribute('viewBox', m ? MOBILE.view : '0 0 1920 679.29');
+    for (const [id, mv] of Object.entries(MOBILE.moves)) {
+      const g = document.getElementById(id);
+      g.style.display = m && mv === null ? 'none' : '';
+      if (m && mv) g.setAttribute('transform', `translate(${mv[0]} ${mv[1]})`);
+      else g.removeAttribute('transform');
+    }
+  };
+  fit(); addEventListener('resize', fit);
+
+  /* ---------- géométrie des paupières ---------- */
+  // bords de l'amande, de gauche à droite (2 Bézier chacun) : haut T, bas B
+  const T = [[83.52, 69.77], [83.52, 69.77], [107.94, 42.96], [138.06, 42.96], [168.18, 42.96], [192.6, 65.65], [192.6, 69.77]];
+  const B = [[83.52, 69.77], [83.52, 69.77], [107.94, 96.58], [138.06, 96.58], [168.18, 96.58], [192.6, 69.77], [192.6, 69.77]];
+  const lift = (P, dy) => P.map(([x, y], i) => [x, i >= 2 && i <= 4 ? y + dy : y]);
+  const TOP_OPEN = lift(T, -1.5);   // paupière haute rangée, juste au-dessus du blanc
+  const TOP_SHUT = lift(B, -3);     // fermée : il reste un fin croissant blanc ‿
+  const BOT_OPEN = lift(B, 1.5);
+  const BOT_UP = lift(T, 14);       // paupière basse remontée (plisser)
+  const mix = (A, Z, t) => A.map((p, i) => [p[0] + (Z[i][0] - p[0]) * t, p[1] + (Z[i][1] - p[1]) * t]);
+  const n = v => Math.round(v * 100) / 100;
+  const pt = p => `${n(p[0])},${n(p[1])}`;
+  const edge = P => `${pt(P[0])}C${pt(P[1])} ${pt(P[2])} ${pt(P[3])}C${pt(P[4])} ${pt(P[5])} ${pt(P[6])}`;
+
+  /* ---------- clignements ---------- */
+  let blinks = [];
+  const blink = (delay = 0, c = 80, h = 40, o = 190, amp = 1) => {
+    const t0 = performance.now() + delay;
+    blinks.push({ t0, c, h, o, amp });
+    return delay + c + h + o;                       // durée totale, pour enchaîner
+  };
+  const blinkValue = now => {
+    let v = 0;
+    blinks = blinks.filter(b => {
+      const t = now - b.t0;
+      if (t > b.c + b.h + b.o) return false;
+      if (t >= 0) {
+        const u = t < b.c ? (t / b.c) ** 2                       // descend en accélérant
+                : t < b.c + b.h ? 1
+                : (1 - (t - b.c - b.h) / b.o) ** 3;              // remonte vite puis se pose
+        v = Math.max(v, u * b.amp);
+      }
+      return true;
+    });
+    return v;
+  };
+  const rand = (a, b) => a + Math.random() * (b - a);
+  let nextBlink = performance.now() + rand(2500, 5000);
+
+  /* ---------- états ---------- */
+  let mode = 'asleep', modeT = performance.now();
+  const setMode = (m, now = performance.now()) => {
+    mode = m; modeT = now;
+    document.documentElement.dataset.eye = m;
+    if (m === 'drowsy') blink(1300, 170, 180, 460);              // un gros clignement lourd
+  };
+  let started = false, wakeFast = 0, lastAct = performance.now();
+  const wake = () => {
+    const now = performance.now();
+    setMode('awake', now);
+    wakeFast = now + 450;
+    const d = blink(340);
+    if (Math.random() < .6) blink(d + 70);
+    nextBlink = now + rand(3000, 6000);
+  };
+  const activity = () => {
+    lastAct = performance.now();
+    if (started && (mode === 'asleep' || mode === 'drowsy')) wake();
+  };
+
+  let pokes = 0, lastPoke = 0;
+  const poke = () => {
+    const now = performance.now();
+    pokes = now - lastPoke < 2600 ? pokes + 1 : 1;
+    lastPoke = now;
+    lastAct = now;
+    started = true;
+    blinks = [];
+    setMode('poked', now);
+  };
+
+  /* ---------- entrées ---------- */
+  let ptr = null, touching = false, lastKey = 0;
+  const setPtr = e => { ptr = { x: e.clientX, y: e.clientY, mouse: e.pointerType === 'mouse', t: performance.now() }; };
+  addEventListener('pointermove', e => { setPtr(e); activity(); }, { passive: true });
+  addEventListener('pointerdown', e => { setPtr(e); touching = e.pointerType !== 'mouse'; activity(); }, { passive: true });
+  const release = e => { if (e.pointerType !== 'mouse') { touching = false; if (ptr) ptr.t = performance.now(); } };
+  addEventListener('pointerup', release);
+  addEventListener('pointercancel', release);
+  addEventListener('pointerout', e => { if (!e.relatedTarget && e.pointerType === 'mouse') ptr = null; });
+  addEventListener('scroll', activity, { passive: true });
+  addEventListener('keydown', activity);
+
+  [dome, eye].forEach(el => el.addEventListener('pointerdown', e => { if (e.button === 0) poke(); }));
+  eye.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); poke(); }
+  });
+
+  // il lit ce qu'on tape
+  const ctx = document.createElement('canvas').getContext('2d');
+  field.addEventListener('input', () => { lastKey = performance.now(); activity(); });
+  const caret = () => {
+    const r = field.getBoundingClientRect(), cs = getComputedStyle(field);
+    ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const w = ctx.measureText(field.value).width + field.value.length * (parseFloat(cs.letterSpacing) || 0);
+    return { x: r.left + parseFloat(cs.paddingLeft) + Math.min(w, r.width - 24), y: r.top + r.height / 2 };
+  };
+
+  // inscription : clin d'œil content
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!field.value || !field.checkValidity()) { field.reportValidity(); return; }
+    field.value = '';
+    field.placeholder = 'Merci, à très vite !';
+    field.blur();
+    lastAct = performance.now();
+    blinks = [];
+    setMode('happy');
+    blink(0, 130, 260, 300);
+  });
+
+  const gaze = now => {
+    if (document.activeElement === field && now - lastKey < 1600) return caret();
+    if (!ptr) return null;
+    if (ptr.mouse || touching || now - ptr.t < 1500) return ptr;
+    return null;                                     // au doigt : il revient vers nous après un moment
+  };
+
+  /* ---------- boucle ---------- */
+  const RX = 22, RY = 8.5;                           // course de la pupille (unités du dessin)
+  const W = 19, Z = calm ? 1 : .78;                  // ressort : vif, ~3 % de dépassement
+  let px = 0, py = 0, vx = 0, vy = 0;
+  let lid = 1, low = 0;
+  let prevTx = 0, prevTy = 0, jump = 0, jumpCool = 0;
+  let onScreen = true, last = performance.now();
+  let lastPupil = '', lastLid = '';
+
+  new IntersectionObserver(([en]) => {
+    onScreen = en.isIntersecting;
+    if (onScreen && !started) { started = true; setTimeout(() => { if (mode === 'asleep') wake(); }, 650); }
+  }).observe(svg);
+
+  const tick = now => {
+    const dt = Math.min(.05, (now - last) / 1000);
+    last = now;
+    if (!onScreen) return;
+
+    // où regarder
+    const m = eye.getScreenCTM();
+    const ex = m.a * CX + m.c * CY + m.e, ey = m.b * CX + m.d * CY + m.f;
+    const unit = Math.hypot(m.a, m.b) || 1;
+    const g = gaze(now);
+    let tx = 0, ty = 0, hover = false;
+    if (g) {
+      const dx = g.x - ex, dy = g.y - ey, d = Math.hypot(dx, dy) || 1;
+      const k = 1 - Math.exp(-d / 150);
+      tx = dx / d * k * RX;
+      ty = dy / d * k * RY;
+      hover = !!g.mouse && (dx / unit / 82) ** 2 + ((dy / unit + 4) / 52) ** 2 < 1;
+    }
+    if (mode === 'drowsy' || mode === 'asleep') { tx *= .4; ty = ty * .4 + RY * .5; }
+
+    // grand saut du regard : un clignement une fois sur deux
+    jump = jump * Math.exp(-dt * 10) + Math.hypot((tx - prevTx) / RX, (ty - prevTy) / RY);
+    prevTx = tx; prevTy = ty;
+    if (jump > 1.1 && now > jumpCool && mode === 'awake' && !calm) {
+      jumpCool = now + 1800;
+      if (Math.random() < .5) blink();
+    }
+
+    // pupille : ressort amorti, pas fixe pour rester stable
+    for (let s = dt; s > 0; s -= 1 / 240) {
+      const h = Math.min(1 / 240, s);
+      vx += (-W * W * (px - tx) - 2 * Z * W * vx) * h;
+      vy += (-W * W * (py - ty) - 2 * Z * W * vy) * h;
+      px += vx * h; py += vy * h;
+    }
+
+    // paupières selon l'état
+    const e = now - modeT;
+    let lt = 0, lo = 0, tauC = 110, tauO = 150, tauL = 170;
+    switch (mode) {
+      case 'asleep': lt = 1; tauC = 650; break;
+      case 'awake':
+        lt = Math.max(0, py / RY) * .16 + (hover ? .22 : 0);   // la paupière suit le regard vers le bas
+        lo = hover ? .2 : 0;
+        if (now < wakeFast) tauO = 70;
+        if (!calm && now - lastAct > 9000) setMode('drowsy', now);
+        if (now > nextBlink) {
+          if (!blinks.length) { const d = blink(); if (Math.random() < .2) blink(d + 70); }
+          nextBlink = now + rand(2600, 6400);
+        }
+        break;
+      case 'poked': {
+        const shut = pokes >= 3 ? 2400 : 1100;
+        if (e < shut) { lt = 1; tauC = 26; }
+        else if (e < shut + 750) { lt = .55; tauO = 170; }     // rouvre à moitié, vérifie
+        else setMode('awake', now);
+        break;
+      }
+      case 'drowsy':
+        if (e < 2400) { lt = .5; tauC = 800; }
+        else if (e < 3000) { lt = .18; tauO = 110; }            // se reprend
+        else if (e < 5600) { lt = .72; tauC = 900; }
+        else setMode('asleep', now);
+        break;
+      case 'happy':
+        if (e < 1500) { lt = .22; lo = .32; tauL = 130; }
+        else setMode('awake', now);
+        break;
+    }
+    lid += (lt - lid) * (1 - Math.exp(-dt * 1000 / (lt > lid ? tauC : tauO)));
+    low += (lo - low) * (1 - Math.exp(-dt * 1000 / tauL));
+    const b = lid + (1 - lid) * blinkValue(now);
+
+    // écriture (seulement si ça bouge)
+    const amt = Math.min(1, Math.hypot(px / RX, py / RY));
+    const ang = Math.atan2(py, px) * 180 / Math.PI;
+    const tp = `translate(${n(CX + px)} ${n(CY + py)}) rotate(${n(ang)}) scale(${(1 - .1 * amt).toFixed(3)} 1) rotate(${n(-ang)}) translate(${-CX} ${-CY})`;
+    if (tp !== lastPupil) { pupil.setAttribute('transform', tp); lastPupil = tp; }
+    const lk = b.toFixed(4) + low.toFixed(4);
+    if (lk !== lastLid) {
+      lidTop.setAttribute('d', `M60,69.77L${edge(mix(TOP_OPEN, TOP_SHUT, b))}L216,69.77V20H60Z`);
+      lidBot.setAttribute('d', `M60,69.77L${edge(mix(BOT_OPEN, BOT_UP, low))}L216,69.77V120H60Z`);
+      lastLid = lk;
+    }
+  };
+  const frame = now => { requestAnimationFrame(frame); if (!window.__eyePause) tick(now); };
+  setMode('asleep');
+  requestAnimationFrame(frame);
+
+  // pour tester à la main depuis la console
+  window.__eye = { poke, wake, tick, doze: () => setMode('drowsy'), get mode() { return mode; } };
+})();
+</script>
+</body>
+</html>
