@@ -6,7 +6,8 @@ Footer de la page produit Maison Matine, avec l'œil de la lampe animé.
 - il cligne tout seul, parfois deux fois, et quand le regard saute d'un bout à l'autre de l'écran ;
 - au clic (ou au tap) il se ferme d'un coup, reste fermé, rouvre à moitié pour vérifier, puis en grand ; trois clics de suite et il boude plus longtemps ;
 - curseur tout près : il plisse l'œil ; on tape son e-mail : il lit ce qu'on écrit ; on s'inscrit : clin d'œil ;
-- sans rien bouger pendant 9 s il s'assoupit, lutte un peu, puis s'endort ; il se réveille au premier geste ;
+- rien à suivre (mobile, ou curseur hors de la fenêtre) : il vit tout seul — regarde autour, le logo, le champ e-mail, le ciel ;
+- à la souris, sans rien bouger pendant 9 s il s'assoupit, lutte un peu, puis s'endort ; il se réveille au premier geste (au doigt, il ne s'endort pas) ;
 - en mobile, la frise est recomposée autour de la lampe pour que l'œil reste lisible.
 
 `index.html` est autonome (seules les polices viennent de Google Fonts). Pour le régénérer après une modification :

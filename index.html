@@ -1049,7 +1049,9 @@ document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click',
    - on le touche : il se ferme d'un coup, reste fermé, rouvre à moitié pour vérifier, puis en grand ;
      touché trois fois de suite, il boude plus longtemps ;
    - curseur tout près : il plisse l'œil ; on tape son e-mail : il lit ce qu'on écrit ; on s'inscrit : clin d'œil content ;
-   - sans rien bouger pendant 9 s il s'assoupit, lutte un peu, puis s'endort ; il se réveille au premier geste. */
+   - rien à suivre (mobile, ou curseur hors de la fenêtre) : il vit tout seul, regarde autour, le logo, le champ e-mail, le ciel ;
+   - à la souris, sans rien bouger pendant 9 s il s'assoupit, lutte un peu, puis s'endort ; il se réveille au premier geste.
+     Au doigt il ne s'endort pas : l'animation tourne en continu. */
 (() => {
   const svg = document.getElementById('illu');
   const dome = document.getElementById('dome');
@@ -1060,6 +1062,7 @@ document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click',
   const field = document.querySelector('.ft__field input');
   const form = document.querySelector('.ft__news');
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touchOnly = matchMedia('(hover: none)').matches;   // téléphone, tablette : pas de curseur à suivre
 
   // centre de l'amande dans son plan de travail (l'œil est posé sur le dôme par build.py, recalé sur la maquette)
   const CX = 138.06, CY = 69.77;
@@ -1205,6 +1208,31 @@ document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click',
     return null;                                     // au doigt : il revient vers nous après un moment
   };
 
+  /* regard autonome, quand il n'y a rien à suivre : petites séquences calmes, tenues assez longtemps */
+  const logoEl = document.getElementById('logo');
+  const elPoint = el => { const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
+  let autoQ = [], autoStep = null, autoEnd = 0, following = true;
+  const plan = () => {
+    const r = Math.random(), side = Math.random() < .5 ? -1 : 1;
+    if (r < .22) return [{ n: [0, 0], hold: rand(1400, 2600) }];                          // nous regarde
+    if (r < .40) return [{ n: [-side * .95, .1], hold: rand(550, 850) },                  // regarde autour
+                         { n: [side * .95, .1], hold: rand(550, 850) },
+                         { n: [0, 0], hold: rand(900, 1400) }];
+    if (r < .56) return [{ el: logoEl, hold: rand(1300, 2200) }];                          // admire le logo
+    if (r < .70) return [{ el: field, hold: rand(1300, 2200) }];                           // invite à s'inscrire
+    if (r < .82) return [{ n: [side * .45, -1], hold: rand(1000, 1600) }];                 // lève les yeux au ciel
+    return [{ n: [side * rand(.4, 1), rand(-.6, .9)], hold: rand(900, 2200) }];            // un coin au hasard
+  };
+  const autoTarget = now => {
+    if (!autoStep || now > autoEnd) {
+      const centered = st => st && st.n && !st.n[0] && !st.n[1];
+      if (!autoQ.length) do autoQ = plan(); while (centered(autoStep) && centered(autoQ[0]));   // pas deux pauses de face d'affilée
+      autoStep = autoQ.shift();
+      autoEnd = now + autoStep.hold;
+    }
+    return autoStep;
+  };
+
   /* ---------- boucle ---------- */
   const RX = 22, RY = 8.5;                           // course de la pupille (unités du dessin)
   const W = 19, Z = calm ? 1 : .78;                  // ressort : vif, ~3 % de dépassement
@@ -1230,12 +1258,26 @@ document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click',
     const unit = Math.hypot(m.a, m.b) || 1;
     const g = gaze(now);
     let tx = 0, ty = 0, hover = false;
-    if (g) {
-      const dx = g.x - ex, dy = g.y - ey, d = Math.hypot(dx, dy) || 1;
+    const toward = p => {                            // vise un point de l'écran
+      const dx = p.x - ex, dy = p.y - ey, d = Math.hypot(dx, dy) || 1;
       const k = 1 - Math.exp(-d / 150);
       tx = dx / d * k * RX;
       ty = dy / d * k * RY;
+      return [dx, dy];
+    };
+    if (g) {
+      const [dx, dy] = toward(g);
       hover = !!g.mouse && (dx / unit / 82) ** 2 + ((dy / unit + 4) / 52) ** 2 < 1;
+      following = true;
+    } else if (!calm) {
+      if (following) {                               // on vient de lâcher : il nous regarde un instant, puis reprend
+        following = false;
+        autoQ = [{ n: [0, 0], hold: rand(700, 1300) }];
+        autoStep = null;
+      }
+      const st = autoTarget(now);
+      if (st.el) toward(elPoint(st.el));
+      else { tx = st.n[0] * RX; ty = st.n[1] * RY; }
     }
     if (mode === 'drowsy' || mode === 'asleep') { tx *= .4; ty = ty * .4 + RY * .5; }
 
@@ -1264,7 +1306,7 @@ document.querySelectorAll('.ft__col a').forEach(a => a.addEventListener('click',
         lt = Math.max(0, py / RY) * .16 + (hover ? .22 : 0);   // la paupière suit le regard vers le bas
         lo = hover ? .2 : 0;
         if (now < wakeFast) tauO = 70;
-        if (!calm && now - lastAct > 9000) setMode('drowsy', now);
+        if (!calm && !touchOnly && now - lastAct > 9000) setMode('drowsy', now);
         if (now > nextBlink) {
           if (!blinks.length) { const d = blink(); if (Math.random() < .2) blink(d + 70); }
           nextBlink = now + rand(2600, 6400);
